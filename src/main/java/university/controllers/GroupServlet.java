@@ -36,7 +36,6 @@ public class GroupServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         List<Group> groups = groupService.getAll();
-
         writer.write(mapper.writeValueAsString(groups));
     }
 
@@ -45,7 +44,8 @@ public class GroupServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        groupService.create(new GroupWithoutIdDto("DFK-3"));
+        GroupWithoutIdDto group = mapper.readValue(req.getInputStream(), GroupWithoutIdDto.class);
+        groupService.create(group);
     }
 
     @Override
@@ -53,7 +53,11 @@ public class GroupServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        groupService.update(1, new GroupWithoutIdDto("DFR-4"));
+        Group group = mapper.readValue(req.getInputStream(), Group.class);
+        int id = group.getId();
+
+        GroupWithoutIdDto groupWithoutIdDto = mapper.readValue(req.getInputStream(), GroupWithoutIdDto.class);
+        groupService.update(id, groupWithoutIdDto);
     }
 
     @Override
@@ -61,6 +65,9 @@ public class GroupServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        groupService.delete(6);
+        Group group = mapper.readValue(req.getInputStream(), Group.class);
+        int id = group.getId();
+
+        groupService.delete(id);
     }
 }

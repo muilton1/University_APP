@@ -6,6 +6,9 @@ public class Group implements Serializable {
     private int id;
     private String groupName;
 
+    public Group() {
+    }
+
     public Group(int id, String groupName) {
         this.id = id;
         this.groupName = groupName;

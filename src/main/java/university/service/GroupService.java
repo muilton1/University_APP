@@ -1,7 +1,6 @@
 package university.service;
 
 
-
 import university.dao.GroupDao;
 import university.dto.Group;
 import university.dto.GroupWithoutIdDto;
@@ -27,7 +26,10 @@ public class GroupService {
     }
 
     public Group get(int id) {
-        return this.dao.readOne(id);
+        List<Integer> getId = getAll().stream().map(Group::getId).collect(Collectors.toList());
+        if (getId.contains(id)) {
+            return this.dao.readOne(id);
+        } else throw new IllegalArgumentException("Группы с таким ID не существует!");
     }
 
     public GroupWithoutIdDto update(int id, GroupWithoutIdDto group) {

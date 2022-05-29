@@ -1,7 +1,9 @@
 package university.dao;
 
 
+import university.dto.GroupWithoutIdDto;
 import university.dto.Student;
+import university.dto.StudentWithoutIdDto;
 import university.dto.StudentsByGroupDto;
 
 import java.sql.*;
@@ -74,12 +76,12 @@ public class StudentsByGroupDao {
     }
 
     private StudentsByGroupDto map(ResultSet rs) throws SQLException {
-        return new StudentsByGroupDto(
+        return new StudentsByGroupDto(new StudentWithoutIdDto(
                 rs.getString("name"),
                 rs.getInt("age"),
                 rs.getDouble("score"),
-                rs.getBoolean("olympicGamer"),
-                rs.getString("groupName")
+                rs.getBoolean("olympicGamer")),
+                new GroupWithoutIdDto(rs.getString("groupName"))
         );
     }
 

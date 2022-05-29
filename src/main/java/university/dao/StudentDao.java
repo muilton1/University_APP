@@ -16,7 +16,7 @@ import java.util.List;
 public class StudentDao implements IStudentDao {
     private static final StudentDao instance = new StudentDao();
     private static final String CREATE_STUDENT = "INSERT INTO univer.students(name, age, score, \"olympicGamer\") VALUES (?, ?, ?, ?)";
-    private static final String READ_STUDENTS = "SELECT id, name, age, score, \"olympicGamer\" FROM univer.students";
+    private static final String READ_STUDENTS = "SELECT id, name, age, score, \"olympicGamer\" FROM univer.students ORDER BY id";
     private static final String READ_ONE_STUDENT = "SELECT id, name, age, score, \"olympicGamer\" FROM univer.students WHERE id=?";
     private static final String UPDATE_STUDENT = "UPDATE univer.students SET name=?, age=?, score=?, \"olympicGamer\"=? WHERE id=?";
     private static final String DELETE_STUDENT = "DELETE FROM univer.students WHERE id=?";
@@ -99,13 +99,13 @@ public class StudentDao implements IStudentDao {
     }
 
     private Student map(ResultSet rs) throws SQLException {
-        return new Student(
-                rs.getInt("id"),
-                rs.getString("name"),
-                rs.getInt("age"),
-                rs.getDouble("score"),
-                rs.getBoolean("olympicGamer")
-        );
+        Student student = new Student();
+        student.setId(rs.getInt("id"));
+        student.setName(rs.getString("name"));
+        student.setAge(rs.getInt("age"));
+        student.setScore(rs.getDouble("score"));
+        student.setOlympicGamer(rs.getBoolean("olympicGamer"));
+        return student;
     }
 
     public void close() throws Exception {

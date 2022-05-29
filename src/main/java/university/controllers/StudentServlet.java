@@ -36,7 +36,6 @@ public class StudentServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         List<Student> all = studentService.getAll();
-
         writer.write(mapper.writeValueAsString(all));
     }
 
@@ -45,7 +44,8 @@ public class StudentServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        studentService.create(new StudentWithoutIdDto("Pasha", 10, 9, true));
+        StudentWithoutIdDto student = mapper.readValue(req.getInputStream(), StudentWithoutIdDto.class);
+        studentService.create(student);
     }
 
     @Override
@@ -53,7 +53,11 @@ public class StudentServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        studentService.update(21, new StudentWithoutIdDto("VladiSlave", 9, 5.5, false));
+        Student student = mapper.readValue(req.getInputStream(), Student.class);
+        int id = student.getId();
+
+        StudentWithoutIdDto studentWithoutIdDto = mapper.readValue(req.getInputStream(), StudentWithoutIdDto.class);
+        studentService.update(id, studentWithoutIdDto);
     }
 
     @Override
@@ -61,6 +65,8 @@ public class StudentServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        studentService.delete(14);
+        Student student = mapper.readValue(req.getInputStream(), Student.class);
+        int id = student.getId();
+        studentService.delete(id);
     }
 }

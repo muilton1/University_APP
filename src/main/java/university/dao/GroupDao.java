@@ -15,7 +15,7 @@ public class GroupDao implements IGroupDao {
     private static final GroupDao instance = new GroupDao();
 
     private static final String CREATE_GROUP = "INSERT INTO univer.groups(\"groupName\") VALUES (?)";
-    private static final String READ_GROUPS = "SELECT id, \"groupName\" FROM univer.groups";
+    private static final String READ_GROUPS = "SELECT id, \"groupName\" FROM univer.groups ORDER BY id";
     private static final String READ_ONE_GROUP = "SELECT \"groupName\" FROM univer.groups WHERE id=?";
     private static final String UPDATE_GROUP = "UPDATE univer.groups SET \"groupName\"=? WHERE id=?";
     private static final String DELETE_GROUP = "DELETE FROM univer.groups WHERE id=?";

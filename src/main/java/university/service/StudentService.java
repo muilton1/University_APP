@@ -1,7 +1,6 @@
 package university.service;
 
 
-
 import university.dao.StudentDao;
 import university.dto.Student;
 import university.dto.StudentWithoutIdDto;
@@ -27,7 +26,10 @@ public class StudentService {
     }
 
     public Student get(int id) {
-        return this.dao.readOne(id);
+        List<Integer> getId = getAll().stream().map(Student::getId).collect(Collectors.toList());
+        if (getId.contains(id)) {
+            return this.dao.readOne(id);
+        } else throw new IllegalArgumentException("Студента с таким ID не существует!");
     }
 
     public StudentWithoutIdDto update(int id, StudentWithoutIdDto studentDto) {
@@ -43,6 +45,7 @@ public class StudentService {
             this.dao.delete(id);
         } else throw new IllegalArgumentException("Студента с таким ID не существует!");
     }
+
     public static StudentService getInstance() {
         return instance;
     }

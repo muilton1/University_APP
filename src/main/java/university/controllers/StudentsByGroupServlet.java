@@ -3,6 +3,7 @@ package university.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import university.dto.Group;
 import university.dto.Student;
 import university.dto.StudentsByGroupDto;
 import university.service.StudentsByGroupService;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(name = "StudentsByGroupServlet", urlPatterns = "/university")
@@ -37,7 +38,9 @@ public class StudentsByGroupServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        List<StudentsByGroupDto> students = insertService.getStudentsByGroup(7);
+        Group group = mapper.readValue(req.getInputStream(), Group.class);
+        int id = group.getId();
+        List<StudentsByGroupDto> students = insertService.getStudentsByGroup(id);
 
         writer.write(mapper.writeValueAsString(students));
     }
@@ -47,12 +50,10 @@ public class StudentsByGroupServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        List<Student> all = new ArrayList<>();
+        List<Student> students = Arrays.asList(mapper.readValue(req.getInputStream(), Student[].class));
 
-        all.add(new Student(15, "Marina", 1, 2, false));
-        all.add(new Student(13, "Pasha", 10, 5.5, false));
-        all.add(new Student(16, "Kostya", 2, 3, false));
-        insertService.insert(all, 4);
+        String id = (req.getParameter("id"));
+        insertService.insert(students, Integer.parseInt(id));
     }
 
     @Override
@@ -60,11 +61,9 @@ public class StudentsByGroupServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        List<Student> all2 = new ArrayList<>();
+        List<Student> students = Arrays.asList(mapper.readValue(req.getInputStream(), Student[].class));
 
-        all2.add(new Student(15, "Marina", 1, 2, false));
-        all2.add(new Student(13, "Pasha", 10, 5.5, false));
-        all2.add(new Student(16, "Kostya", 2, 3, false));
-        insertService.deleteStudents(all2, 4);
+        String id = (req.getParameter("id"));
+        insertService.deleteStudents(students, Integer.parseInt(id));
     }
 }

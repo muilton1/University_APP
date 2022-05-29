@@ -1,37 +1,28 @@
 package university.dto;
 
-public class StudentsByGroupDto {
-    private String name;
-    private int age;
-    private double score;
-    private boolean olympicGamer;
-    private String groupName;
 
-    public StudentsByGroupDto(String name, int age, double score, boolean olympicGamer, String groupName) {
-        this.name = name;
-        this.age = age;
-        this.score = score;
-        this.olympicGamer = olympicGamer;
+public class StudentsByGroupDto {
+    private StudentWithoutIdDto student;
+    private GroupWithoutIdDto groupName;
+
+    public StudentsByGroupDto(StudentWithoutIdDto student, GroupWithoutIdDto groupName) {
+        this.student = student;
         this.groupName = groupName;
     }
 
-    public String getName() {
-        return name;
+    public StudentWithoutIdDto getStudent() {
+        return student;
     }
 
-    public int getAge() {
-        return age;
+    public void setStudent(StudentWithoutIdDto student) {
+        this.student = student;
     }
 
-    public double getScore() {
-        return score;
-    }
-
-    public boolean isOlympicGamer() {
-        return olympicGamer;
-    }
-
-    public String getGroupName() {
+    public GroupWithoutIdDto getGroupName() {
         return groupName;
+    }
+
+    public void setGroupName(GroupWithoutIdDto groupName) {
+        this.groupName = groupName;
     }
 }

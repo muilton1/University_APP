@@ -6,6 +6,9 @@ public class StudentWithoutIdDto {
     private double score;
     private boolean olympicGamer;
 
+    public StudentWithoutIdDto() {
+    }
+
     public StudentWithoutIdDto(String name, int age, double score, boolean olympicGamer) {
         this.name = name;
         this.age = age;
@@ -27,5 +30,21 @@ public class StudentWithoutIdDto {
 
     public boolean isOlympicGamer() {
         return olympicGamer;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public void setOlympicGamer(boolean olympicGamer) {
+        this.olympicGamer = olympicGamer;
     }
 }

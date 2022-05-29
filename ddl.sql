@@ -1,3 +1,7 @@
+-- Database: university
+
+CREATE DATABASE university
+
 -- SCHEMA: univer
 
 CREATE SCHEMA IF NOT EXISTS univer

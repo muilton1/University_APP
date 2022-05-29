@@ -12,6 +12,9 @@ public class Student implements Serializable {
     private double score;
     private boolean olympicGamer;
 
+    public Student() {
+    }
+
     public Student(int id, String name, int age, double score, boolean olympicGamer) {
         this.id = id;
         this.name = name;
